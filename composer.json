@@ -1,0 +1,26 @@
+{
+    "name": "codememory/service-provider",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Danil",
+            "email": "kostynd1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Codememory\\Container\\ServiceProvider\\": ""
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.2"
+    },
+    "require": {
+        "codememory/dependency-injection": "^1.0",
+        "codememory/config": "^1.0",
+        "codememory/global-config": "^1.0",
+        "codememory/support": "^1.0",
+        "codememory/fs": "^1.0"
+    }
+}
