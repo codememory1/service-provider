@@ -17,10 +17,10 @@
         "symfony/var-dumper": "^5.2"
     },
     "require": {
-        "codememory/dependency-injection": "^1.0",
-        "codememory/config": "^1.0",
-        "codememory/global-config": "^1.0",
-        "codememory/support": "^1.0",
-        "codememory/fs": "^1.0"
+        "codememory/dependency-injection": "^1.0.1",
+        "codememory/config": "^1.1.1",
+        "codememory/global-config": "^1.1.1",
+        "codememory/support": "^1.2.1",
+        "codememory/fs": "^1.1.2"
     }
 }
