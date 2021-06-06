@@ -11,6 +11,7 @@ use Codememory\Container\ServiceProvider\Exceptions\ProviderNotFoundException;
 use Codememory\Container\ServiceProvider\Interfaces\ServiceProviderInterface;
 use Codememory\FileSystem\Interfaces\FileInterface;
 use Codememory\Support\Arr;
+use Generator;
 
 /**
  * Class ServiceProvider
@@ -148,22 +149,22 @@ class ServiceProvider implements ServiceProviderInterface
     private function registrationProvidersInQueue(): void
     {
 
-        $this->iterationProviders(function (string $name, Provider $provider) {
+        foreach ($this->iterationProviders() as [$name, $provider]) {
             $this->providers[$name] = $provider->getProvider();
-        });
+        }
 
     }
 
     /**
      * @param callable $handler
      *
-     * @return void
+     * @return Generator
      */
-    private function iterationProviders(callable $handler): void
+    private function iterationProviders(): Generator
     {
 
         foreach ($this->providersForRegistration as $name => $provider) {
-            call_user_func($handler, $name, $provider);
+            yield [$name, $provider];
         }
 
     }
