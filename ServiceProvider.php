@@ -91,7 +91,7 @@ class ServiceProvider implements ServiceProviderInterface
             throw new ProviderNotFoundException($name);
         }
 
-        return $this->providers[$name];
+        return $this->providers[$name]->__invoke();
 
     }
 
@@ -150,7 +150,7 @@ class ServiceProvider implements ServiceProviderInterface
     {
 
         foreach ($this->iterationProviders() as [$name, $provider]) {
-            $this->providers[$name] = $provider->getProvider();
+            $this->providers[$name] = fn () => $provider->getProvider();
         }
 
     }
@@ -183,3 +183,4 @@ class ServiceProvider implements ServiceProviderInterface
     }
 
 }
+
