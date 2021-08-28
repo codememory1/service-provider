@@ -33,7 +33,7 @@ class Utils
     public function __construct(ConfigInterface $config)
     {
 
-        $this->config = $config->open(GlobalConfig::get('serviceProvider.configName'));
+        $this->config = $config->open(GlobalConfig::get('serviceProvider.configName'), throw: false);
 
     }
 
