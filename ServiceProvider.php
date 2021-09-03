@@ -2,19 +2,14 @@
 
 namespace Codememory\Container\ServiceProvider;
 
-use Codememory\Components\Configuration\Config;
-use Codememory\Components\Environment\Exceptions\EnvironmentVariableNotFoundException;
-use Codememory\Components\Environment\Exceptions\IncorrectPathToEnviException;
-use Codememory\Components\Environment\Exceptions\ParsingErrorException;
-use Codememory\Components\Environment\Exceptions\VariableParsingErrorException;
 use Codememory\Container\ServiceProvider\Exceptions\ProviderNotFoundException;
 use Codememory\Container\ServiceProvider\Interfaces\ServiceProviderInterface;
-use Codememory\FileSystem\Interfaces\FileInterface;
 use Codememory\Support\Arr;
 use Generator;
 
 /**
  * Class ServiceProvider
+ *
  * @package Codememory\Container\ServiceProvider
  *
  * @author  Codememory
@@ -31,28 +26,6 @@ class ServiceProvider implements ServiceProviderInterface
      * @var array
      */
     private array $providers = [];
-
-    /**
-     * @var Config
-     */
-    private Config $config;
-
-    /**
-     * ServiceProvider constructor.
-     *
-     * @param FileInterface $filesystem
-     *
-     * @throws EnvironmentVariableNotFoundException
-     * @throws IncorrectPathToEnviException
-     * @throws ParsingErrorException
-     * @throws VariableParsingErrorException
-     */
-    public function __construct(FileInterface $filesystem)
-    {
-
-        $this->config = new Config($filesystem);
-
-    }
 
     /**
      * @inheritDoc
@@ -133,7 +106,7 @@ class ServiceProvider implements ServiceProviderInterface
     private function registrationProvidersFromConfiguration(): void
     {
 
-        $utils = new Utils($this->config);
+        $utils = new Utils();
 
         foreach ($utils->getProviders() as $name => $data) {
             $this->handlerProviderRegistration($name, $utils->getProvider($name));
@@ -156,8 +129,6 @@ class ServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param callable $handler
-     *
      * @return Generator
      */
     private function iterationProviders(): Generator

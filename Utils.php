@@ -2,6 +2,7 @@
 
 namespace Codememory\Container\ServiceProvider;
 
+use Codememory\Components\Configuration\Configuration;
 use Codememory\Components\Configuration\Interfaces\ConfigInterface;
 use Codememory\Components\GlobalConfig\GlobalConfig;
 use Codememory\Container\ServiceProvider\Exceptions\ProviderNamespaceNotSpecifiedException;
@@ -27,13 +28,11 @@ class Utils
 
     /**
      * Utils constructor.
-     *
-     * @param ConfigInterface $config
      */
-    public function __construct(ConfigInterface $config)
+    public function __construct()
     {
 
-        $this->config = $config->open(GlobalConfig::get('serviceProvider.configName'), throw: false);
+        $this->config = Configuration::getInstance()->open(GlobalConfig::get('serviceProvider.configName'));
 
     }
 
@@ -43,7 +42,7 @@ class Utils
     public function getProviders(): array
     {
 
-        return $this->config->get();
+        return $this->config->all();
 
     }
 
