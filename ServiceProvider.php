@@ -25,7 +25,12 @@ class ServiceProvider implements ServiceProviderInterface
     /**
      * @var array
      */
-    private array $providers = [];
+    public array $providers = [];
+
+    /**
+     * @var array
+     */
+    private array $providersReceived = [];
 
     /**
      * @inheritDoc
@@ -64,7 +69,11 @@ class ServiceProvider implements ServiceProviderInterface
             throw new ProviderNotFoundException($name);
         }
 
-        return $this->providers[$name]->__invoke();
+        if(!array_key_exists($name, $this->providersReceived)) {
+            $this->providersReceived[$name] = $this->providers[$name]->__invoke();
+        }
+
+        return $this->providersReceived[$name];
 
     }
 
